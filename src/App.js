@@ -17,9 +17,11 @@ function App() {
     <div className="App">
     
     <BrowserRouter>
+    {/* this navbar need to be available in all the components */}
     <Navbar/>
     <Routes>
      <Route path='/' element={<Shop/>}/>
+     {/* props passed is category men , category women , category kid and so on */}
      <Route path='/mens' element={<ShopCategory banner={men_banner} category="men"/>}/>
      <Route path='/womens' element={<ShopCategory banner={women_banner} category="women"/>}/>
      <Route path='/kids' element={<ShopCategory banner={kid_banner} category="kid"/>}/>
@@ -27,7 +29,7 @@ function App() {
      <Route path='product' element={<Product/>}>
       <Route path=':productId' element={<Product/>}/>
      </Route>
-     
+
      <Route path='/cart' element={<Cart/>}/>
      <Route path='/login' element={<LoginSignup/>}/>
      

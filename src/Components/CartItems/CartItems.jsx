@@ -1,9 +1,24 @@
 import React, { useContext } from 'react'
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import remove_icon from '../Assets/cart_cross_icon.png';
 const CartItems = () => {
     const {getTotalCartAmount,all_product,cartItems, removeFromCart}=useContext(ShopContext);
+    //
+    const handleRemove = (productId) => {
+      removeFromCart(productId);
+      toast.success('Item removed successfully!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    };
+    //
   return (
     <div className='cartitems'>
       <div className='cartitems-format-main'>
@@ -20,14 +35,14 @@ const CartItems = () => {
            if(cartItems[e.id]>0)
            {
 
-            return <div>
+            return <div key={e.id}>
     <div className='cartitems-format cartitems-format-main'>
         <img src={e.image} alt='' className='carticon-product-icon'/>
         <p>{e.name}</p>
         <p>${e.new_price}</p>
         <button className='cartitems-quantity'>{cartItems[e.id]}</button>
         <p>${e.new_price*cartItems[e.id]}</p>
-        <img className='cartitems-remove-icon' src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt=''/>
+        <img className='cartitems-remove-icon' src={remove_icon} onClick={()=>{handleRemove(e.id)}} alt=''/>
     </div>
     <hr/>
   </div>
@@ -65,6 +80,7 @@ const CartItems = () => {
             </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   )
 }

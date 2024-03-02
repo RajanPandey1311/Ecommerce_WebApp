@@ -3,9 +3,28 @@ import './ProductDisplay.css'
 import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png'
 import { ShopContext } from '../../Context/ShopContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const ProductDisplay = (props) => {
     const {product}=props;
+    //here we will import our add to cart fun through context api:-
     const {addToCart}=useContext(ShopContext);
+    //handleButtonClick:-
+    const handleButtonClick = () => {
+      addToCart(product.id);
+      toast.success('Product added to the cart!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    };
+    //
+  
   return (
     <div className='productdisplay'>
       <div className='productdisplay-left'>
@@ -16,7 +35,7 @@ const ProductDisplay = (props) => {
          <img src={product.image} alt=''/>
        </div>
        <div className='productdisplay-img'>
-        <img className='productdisplay-main-img'  src={product.image} alt=''/>
+        <img className='productdisplay-main-img'  src={product.image}/>
        </div>
       </div>
       <div className='productdisplay-right'>
@@ -39,6 +58,7 @@ const ProductDisplay = (props) => {
       <div className='productdisplay-right-size'>
         <h1>Select Size</h1>
         <div className='productdisplay-right-sizes'>
+            {/* in this div we will create 5 divs */}
             <div>S</div>
             <div>M</div>
             <div>L</div>
@@ -46,10 +66,12 @@ const ProductDisplay = (props) => {
             <div>XXL</div>
         </div>
       </div>
-      <button onClick={()=>{addToCart(product.id)}}>ADD TO CART</button>
+      {/* linking add to cart fun with add to cart button */}
+      <button onClick={handleButtonClick}>ADD TO CART</button>
       <p className='productdisplay-right-category'><span>Category :</span>Women , T-Shirt, CropTop</p>
       <p className='productdisplay-right-category'><span>Tags :</span> Modern , Latest </p>
       </div>
+      <ToastContainer />
     </div>
   )
 }
